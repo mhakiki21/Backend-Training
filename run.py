@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import Response
 #from flask_ngrok import run_with_ngrok #hanya digunakan ketika menggunakan google colab dan tidak untuk di deploy ke heroku
+from flask import request
 import json
 
 f1 = open('./convective_map.geojson')
@@ -57,6 +58,25 @@ def send_json_ki():
     return Response(response=json.dumps(geodata4),
                     status=200,
                     mimetype="application/json")
-    
+
+@pelatihan_ibf_app.route('/morethan')
+def send_json_query():
+    value = request.args.get('value')
+    key = request.args.get('data')
+    if key == "cape":
+      data = geodata2
+    elif key == "li":
+      data = geodata3
+    elif key == "convective":
+      data = geodata1
+    elif key == "ki":
+      data = geodata4
+  
+    dataquery = [p for p in data["features"] if p["properties"]["value"] >= int(value)] #perhatikan jenis variable
+
+    return Response(response=json.dumps(dataquery),
+                    status=200,
+                    mimetype="application/json")    
+
 if __name__ == '__main__':
     pelatihan_ibf_app.run()
