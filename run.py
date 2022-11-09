@@ -2,11 +2,10 @@ from flask import Flask
 from flask import Response
 #from flask_ngrok import run_with_ngrok #hanya digunakan ketika menggunakan google colab dan tidak untuk di deploy ke heroku
 import json
-
-f1 = open('./convective_map.geojson')
-f2 = open('./cape_clipped.geojson')
-f3 = open('./li_clipped.geojson')
-f4 = open('./ki_clipped.geojson')
+f1 = open('/content/Backend-Training/convective_map.geojson')
+f2 = open('/content/Backend-Training/cape_map.geojson')
+f3 = open('/content/Backend-Training/li_map.geojson')
+f4 = open('/content/Backend-Training/ki_map.geojson')
 
 geodata1 = json.load(f1)
 geodata2 = json.load(f2)
