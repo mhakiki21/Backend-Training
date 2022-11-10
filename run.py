@@ -25,8 +25,8 @@ def send_status():
 @pelatihan_ibf_app.route('/impact/add', methods=["POST"])
 def add_status():
     req = json.loads(request.data)
-    for a in req["features"]:
-      geo["features"].append(copy.copy(req[a]))
+    for a in range(len(req["features"])):
+      geo["features"].append(copy.copy(req["features"][a]))
     
     return Response(response=json.dumps(geo),
                     status=200,
