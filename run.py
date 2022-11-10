@@ -4,6 +4,8 @@ from flask import Response
 from flask import request
 import json
 
+from flask_cors import CORS
+
 f1 = open('./convective_map.geojson')
 f2 = open('./cape_map.geojson')
 f3 = open('./li_map.geojson')
@@ -59,7 +61,7 @@ def send_json_ki():
                     status=200,
                     mimetype="application/json")
 
-@pelatihan_ibf_app.route('/morethan')
+@pelatihan_ibf_app.route('/lessthan')
 def send_json_query():
     value = request.args.get('value')
     key = request.args.get('data')
@@ -72,7 +74,7 @@ def send_json_query():
     elif key == "ki":
       data = geodata4
   
-    dataquery = [p for p in data["features"] if p["properties"]["value"] >= int(value)] #perhatikan jenis variable
+    dataquery = [p for p in data["features"] if p["properties"]["value"] < int(value)] #perhatikan jenis variable
 
     return Response(response=json.dumps(dataquery),
                     status=200,
